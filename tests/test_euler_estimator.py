@@ -18,3 +18,7 @@ print('Does EulerEstimators calc_estimated_points correctly calculate the estima
 assert euler.calc_estimated_points(point=(1,4), step_size=0.5, num_steps=4) == [(1, 4), (1.5, 5), (2, 6.25), (2.5, 7.75), (3, 9.5)], 'No, it does not'
 print('Yes, it does!')
 print()
+
+euler = EulerEstimator(derivative = lambda t: t+1)
+
+euler.plot(point=(-5,10), step_size=0.1, num_steps=100)

@@ -1,3 +1,5 @@
+import matplotlib.pyplot as plt
+
 class EulerEstimator :
     def __init__(self, derivative) :
         self.derivative = derivative
@@ -20,3 +22,13 @@ class EulerEstimator :
             current_point = self.step_forward(current_point, step_size)
             steps_taken += 1
         return all_points
+
+    def plot(self, point, step_size, num_steps) : 
+        plt.style.use('bmh')
+        all_points = self.calc_estimated_points(point, step_size, num_steps)
+        x_points = [x[0] for x in all_points]
+        y_points = [y[1] for y in all_points]
+        plt.gca().set_aspect("equal")
+        plt.plot(x_points,y_points)
+        plt.savefig('tests/eulerplot.png')
+        plt.clf()
