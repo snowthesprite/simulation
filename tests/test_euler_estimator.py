@@ -57,8 +57,7 @@ keys = [key for key in rounded]
 for key in keys :
     rounded[key] = round(rounded[key], 2)
 
-assert point_3 == (-0.4, {'A': -0.45, 'B': -0.05, 'C': 0})
-print(), 'point_3 isnt quite right'
+assert point_3 == (-0.4, {'A': -0.45, 'B': -0.05, 'C': 0}), 'point_3 isnt quite right'
 
 all_points = euler.calc_estimated_points(point=point_3, step_size=2, num_steps=3)
 
