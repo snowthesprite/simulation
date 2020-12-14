@@ -1,16 +1,22 @@
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 class EulerEstimator :
-    def __init__(self, derivative) :
-        self.derivative = derivative
+    def __init__(self, derivatives) :
+        self.derivative = derivatives
+        self.keys = [key for key in derivatives]
     
     def calc_derivative_at_point(self, point) :
-        return self.derivative(point[0])
+        derivative = {}
+        for key in self.keys :
+            derive = self.derivative[key]
+            derivative[key] = derive(point[0], point[1])
+        return derivative
 
     def step_forward(self, point, step_size) :
-        list_point = list(point)
+        list_point = [point[0], point[1].copy()]
         list_point[0] += step_size
-        list_point[1] += self.calc_derivative_at_point(point) * step_size
+        for key in self.keys :
+            list_point[1][key] = point[1][key] + self.calc_derivative_at_point(point)[key] * step_size
         return tuple(list_point) 
     
     def calc_estimated_points(self, point, step_size, num_steps) :

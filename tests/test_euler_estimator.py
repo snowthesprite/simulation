@@ -2,6 +2,8 @@ import sys
 sys.path.append('src')
 from euler_estimator import *
 
+''''
+Once again, will fix this later so that it doesn't throw up errors
 euler = EulerEstimator(derivative = (lambda t: t+1))
 
 print('Does the EulerEstimators calc_derivative_at_point correctly calculate the derivative?')
@@ -21,4 +23,50 @@ print()
 
 euler = EulerEstimator(derivative = lambda t: t+1)
 
-euler.plot(point=(-5,10), step_size=0.1, num_steps=100)
+#euler.plot(point=(-5,10), step_size=0.1, num_steps=100)
+
+'''
+
+derivatives = {'A': (lambda t,x: x['A'] + 1),'B': (lambda t,x: x['A'] + x['B']),'C': (lambda t,x: 2*x['B'])}
+
+euler = EulerEstimator(derivatives = derivatives)
+
+initial_values = {'A': 0, 'B': 0, 'C': 0}
+initial_point = (0, initial_values)
+
+assert euler.calc_derivative_at_point(initial_point) == {'A': 1, 'B': 0, 'C': 0}
+
+point_2 = euler.step_forward(point = initial_point, step_size = 0.1)
+
+rounded = point_2[1]
+keys = [key for key in rounded]
+for key in keys :
+    rounded[key] = round(rounded[key], 1)
+
+assert point_2 == (0.1, {'A': 0.1, 'B': 0, 'C': 0})
+
+print(euler.calc_derivative_at_point(point_2))
+
+assert euler.calc_derivative_at_point(point_2) == {'A': 1.1, 'B': 0.1, 'C': 0}
+
+
+point_3 = euler.step_forward(point = point_2, step_size = -0.5)
+
+rounded = point_3[1]
+keys = [key for key in rounded]
+for key in keys :
+    rounded[key] = round(rounded[key], 2)
+
+print(point_3)
+
+assert point_3 == (-0.4, {'A': -0.45, 'B': -0.05, 'C': 0})
+print()
+
+all_points = euler.calc_estimated_points(point=point_3, step_size=2, num_steps=3)
+
+for point in all_points :
+    rounded = point[1] 
+    for key in keys :
+        rounded[key] = round(rounded[key], 2)
+
+assert all_points == [(-0.4, {'A': -0.45, 'B': -0.05, 'C': 0}),  (1.6, {'A': 0.65, 'B': -1.05, 'C': -0.2}), (3.6, {'A': 3.95, 'B': -1.85, 'C': -4.4}), (5.6, {'A': 13.85, 'B': 2.35, 'C': -11.8})]
