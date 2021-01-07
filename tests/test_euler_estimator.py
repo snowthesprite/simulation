@@ -69,3 +69,6 @@ for point in all_points :
 assert all_points == [(-0.4, {'A': -0.45, 'B': -0.05, 'C': 0}),  (1.6, {'A': 0.65, 'B': -1.05, 'C': -0.2}), (3.6, {'A': 3.95, 'B': -1.85, 'C': -4.4}), (5.6, {'A': 13.85, 'B': 2.35, 'C': -11.8})], 'one of the grouped points arent right'
 
 print('Yes it does!')
+
+#print(random.random())
+euler.plot(initial_point, 0.01, 5)
