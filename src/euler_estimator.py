@@ -1,11 +1,11 @@
 import matplotlib.pyplot as plt
-import random
+#import random
 
 class EulerEstimator :
     def __init__(self, derivatives) :
         self.derivative = derivatives
         self.keys = [key for key in derivatives]
-        self.color = {key:(random.random(), random.random(), random.random()) for key in self.keys}
+        #self.color = {key:(random.random(), random.random(), random.random()) for key in self.keys}
     
     def calc_derivative_at_point(self, point) :
         derivative = {}
@@ -31,7 +31,7 @@ class EulerEstimator :
             steps_taken += 1
         return all_points
 
-    def plot(self, point, step_size, goal) : 
+    def plot(self, point, step_size, goal, plot_destination = 'tests/eulerplot.png') : 
         plt.style.use('bmh')
         current_point = point[0]
         num_steps = 0
@@ -46,6 +46,7 @@ class EulerEstimator :
                 y_points[key].append(point[1][key])
         #plt.gca().set_aspect("equal")
         for key in self.keys :
-            plt.plot(x_points, y_points[key], color = self.color[key])
+            plt.plot(x_points, y_points[key])
+            #plt.plot(x_points, y_points[key], color = self.color[key])
         plt.legend(self.keys)
-        plt.savefig('tests/eulerplot.png')
+        plt.savefig(plot_destination)
