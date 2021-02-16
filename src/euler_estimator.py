@@ -44,9 +44,7 @@ class EulerEstimator :
         for point in all_points :
             for key in self.keys :
                 y_points[key].append(point[1][key])
-        #plt.gca().set_aspect("equal")
         for key in self.keys :
             plt.plot(x_points, y_points[key])
-            #plt.plot(x_points, y_points[key], color = self.color[key])
         plt.legend(self.keys)
         plt.savefig(plot_destination)
