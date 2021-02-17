@@ -1,11 +1,9 @@
 import matplotlib.pyplot as plt
-#import random
 
 class EulerEstimator :
     def __init__(self, derivatives) :
         self.derivative = derivatives
         self.keys = [key for key in derivatives]
-        #self.color = {key:(random.random(), random.random(), random.random()) for key in self.keys}
     
     def calc_derivative_at_point(self, point) :
         derivative = {}
